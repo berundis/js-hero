@@ -1,6 +1,6 @@
-function Fret(x, red, green, blue) {
+function Fret(x, y, red, green, blue) {
   this.x = x;
-  this.y = 0;
+  this.y = y;
   this.width = 10;
   this.red = red;
   this.green = green;
