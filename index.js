@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   const score = document.getElementById('score')
   const button = document.getElementById('play-game')
 
-  button.addEventListener('click', ()=>{
+  button.addEventListener('click', (e)=>{
     gameStart = true
+    e.target.remove()
   })
 
   document.addEventListener("keyup",keyPush);

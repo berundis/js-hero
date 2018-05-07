@@ -3,7 +3,7 @@ let allWFrets = [0, -30, -90, -120];
 let allEFrets = [-60, -180, -240];
 let allRFrets = [-60, -180, -240];
 let allTFrets = [-60, -180, -240];
-const CONTAINERHEIGHT = 800
+const CONTAINERHEIGHT = window.innerHeight - 60;
 let gameStart = false
 
 function createArray(allFrets, x, red, green, blue){
