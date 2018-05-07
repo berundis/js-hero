@@ -4,7 +4,7 @@ function setup() {
   wArr = createArray(allWFrets, 160, 0, 0, 255);
   eArr = createArray(allEFrets, 240, 0, 255, 0);
   rArr = createArray(allRFrets, 320, 255, 128, 0);
-  tArr = createArray(allTFrets, 400, 0,255, 0, 255);
+  tArr = createArray(allTFrets, 400, 255, 0, 255);
 
   qbox = new Input(80, 255, 0, 0)
   wbox = new Input(160, 0, 0, 255);
