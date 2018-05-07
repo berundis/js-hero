@@ -1,3 +1,3 @@
 function Input() {
-  
+  this.x =
 }
