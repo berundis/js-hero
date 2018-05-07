@@ -1,3 +1,4 @@
+const BEAT = -60
 let allQFrets = [0, -240];
 let allWFrets = [0, -30, -90, -120];
 let allEFrets = [-60, -180, -240];

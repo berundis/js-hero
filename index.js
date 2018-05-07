@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   button.addEventListener('click', (e)=>{
     gameStart = true
     e.target.remove()
+    //fetch(song)
+    let audio = new Audio('Straight to the Bank.mp3') // song.file_path
+    audio.play()
   })
 
   document.addEventListener("keyup",keyPush);
