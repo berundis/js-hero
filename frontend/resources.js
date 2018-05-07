@@ -1,10 +1,14 @@
 const BEAT = -60
-let allQFrets = [0, -240];
-let allWFrets = [0, -30, -90, -120];
-let allEFrets = [-60, -180, -240];
-let allRFrets = [-60, -180, -240];
-let allTFrets = [-60, -180, -240];
-const CONTAINERHEIGHT = window.innerHeight - 60;
+const CONTAINERHEIGHT = 600;
+
+let allQFrets = [-2000];
+let allWFrets = [-350, -390,-415,-455, -480, -975, -1010, -1035, -1075, -1100];
+let allEFrets = [-510, -545, -570, -610, -635, -665, -700, -725, -765, -790, -1135, -1165, -1190, -1230, -1255, -1290, -1320, -1345, -1385, -1410];
+let allRFrets = [-350, -390, -415, -455, -480, -510, -545, -570, -610, -635, -820, -855, -880, -920, -945, -975, -1010, -1035, -1075, -1100, -1135, -1165, -1190, -1230, -1255, -1445, -1475, -1500, -1540, -1565];
+let allTFrets = [-665, -700, -725, -765, -790, -820, -855, -880, -920, -945, -1290, -1320, -1345, -1385, -1410, -1445, -1475, -1500, -1540, -1565];
+
+
+
 let gameStart = false
 
 function createArray(allFrets, x, red, green, blue){
@@ -28,9 +32,11 @@ function showArr(fretArr, speed){
 function AddScore(fretArr) {
   if(fretArr.length > 0){
     if(fretArr[0].onInputBox()){
+      console.log(true)
       fretArr.shift()
       score.innerText = parseInt(score.innerText) + 200
     }else {
+      console.log(false)
       score.innerText = parseInt(score.innerText) - 100
     }
   }

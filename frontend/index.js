@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     gameStart = true
     e.target.remove()
     //fetch(song)
-    let audio = new Audio('Straight to the Bank.mp3') // song.file_path
+    let audio = new Audio('./audio/The White Stripes.mp3') // song.file_path
     audio.play()
   })
 
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     switch(evt.keyCode) {
       case 81:
       AddScore(qArr)
+      console.log('q');
       break;
       case 87:
       AddScore(wArr)
