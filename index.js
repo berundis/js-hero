@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", ()=>{
   const score = document.getElementById('score')
-  document.addEventListener("keyup",keyPush);
+  const button = document.getElementById('play-game')
 
+  button.addEventListener('click', ()=>{
+    gameStart = true
+  })
+
+  document.addEventListener("keyup",keyPush);
   function keyPush(evt) {
     switch(evt.keyCode) {
       case 81:
@@ -22,15 +27,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
   }
 
-  function AddScore(fretArr) {
-    if(fretArr.length > 0){
-      if(fretArr[0].onInputBox()){
-        fretArr.shift()
-        score.innerText = parseInt(score.innerText) + 200
-      }else {
-        score.innerText = parseInt(score.innerText) - 100
-      }
-    }
-    }
+
 
   })
