@@ -1,6 +1,6 @@
 function Input(x, red, green, blue) {
   this.x = x;
-  this.y = 700;
+  this.y = CONTAINERHEIGHT - 100;
   this.width = 10;
   this.red = red;
   this.green = green;
