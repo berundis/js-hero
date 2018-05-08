@@ -24,6 +24,8 @@ function showArr(fretArr, speed){
     fretArr[i].move(speed)
     if (fretArr[i].y > CONTAINERHEIGHT){
       fretArr.shift();
+      multiplier.innerText = '1'
+      visual.innerText = '.'
     }
   }
 }
@@ -31,12 +33,17 @@ function showArr(fretArr, speed){
 function AddScore(fretArr) {
   if(fretArr.length > 0 && gameStart){
     if(fretArr[0].onInputBox()){
-      console.log(true)
       fretArr.shift()
-      score.innerText = parseInt(score.innerText) + 200
+      score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
+      visual.innerText += '.'
+      if(visual.innerText == '............'){
+        multiplier.innerText = parseInt(multiplier.innerText) + 1
+        visual.innerText = '.'
+      }
     }else {
-      console.log(false)
       score.innerText = parseInt(score.innerText) - 100
+      visual.innerText = '.'
+      multiplier.innerText = '1'
     }
   }
   }
