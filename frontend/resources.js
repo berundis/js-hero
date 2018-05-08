@@ -1,4 +1,3 @@
-const BEAT = -60
 const CONTAINERHEIGHT = 600;
 
 let allQFrets = [-2000];
@@ -30,7 +29,7 @@ function showArr(fretArr, speed){
 }
 
 function AddScore(fretArr) {
-  if(fretArr.length > 0){
+  if(fretArr.length > 0 && gameStart){
     if(fretArr[0].onInputBox()){
       console.log(true)
       fretArr.shift()
