@@ -23,48 +23,42 @@ document.addEventListener("DOMContentLoaded", ()=>{
       })
     })
 
-    function setUpSong(id) {
-      SongAdapter.getSong(id)
-      .then(song => {
-        setUpGame()
-        gameStart = true
-        let audio = new Audio('./audio/The White Stripes.mp3');
-        audio.play()
-      })
-    }
-    // <h2>Score: <span id="score">0</span> </h2>
-    // gameStart = true
-    // e.target.remove()
-    // //fetch(song)
-    // let audio = new Audio() // song.file_path
-    // audio.play()
+  function setUpSong(id) {
+    SongAdapter.getSong(id)
+    .then(song => {
+      setUpGame()
+      gameStart = true
+      let audio = new Audio('./audio/The White Stripes.mp3');
+      audio.play()
+    })
+  }
 
-    function setUpGame() {
-      let score = document.createElement('span')
-      score.setAttribute('id', 'score')
-      score.innerText = '0'
-      let scoreCard = document.createElement('h2')
-      scoreCard.innerText = 'Score: '
-      scoreCard.append(score)
-      body.append(scoreCard)
-      let multiplier = document.createElement('span')
-      multiplier.setAttribute('id', 'multiplier')
-      multiplier.innerText = '1'
-      let multiplierCard = document.createElement('h2')
-      multiplierCard.innerText = 'Multiplier: x '
-      multiplierCard.append(multiplier)
-      body.append(multiplierCard)
-      let multiplierVisual = document.createElement('p')
-      multiplierVisual.setAttribute('id', 'visual')
-      multiplierVisual.innerText = "."
-      body.append(multiplierVisual)
-    }
+  function setUpGame() {
+    let score = document.createElement('span')
+    score.setAttribute('id', 'score')
+    score.innerText = '0'
+    let scoreCard = document.createElement('h2')
+    scoreCard.innerText = 'Score: '
+    scoreCard.append(score)
+    body.append(scoreCard)
+    let multiplier = document.createElement('span')
+    multiplier.setAttribute('id', 'multiplier')
+    multiplier.innerText = '1'
+    let multiplierCard = document.createElement('h2')
+    multiplierCard.innerText = 'Multiplier: x '
+    multiplierCard.append(multiplier)
+    body.append(multiplierCard)
+    let multiplierVisual = document.createElement('p')
+    multiplierVisual.setAttribute('id', 'visual')
+    multiplierVisual.innerText = "."
+    body.append(multiplierVisual)
+  }
 
-    document.addEventListener("keyup", (e)=>{
-      let score = document.getElementById('score')
-      let multiplier = document.getElementById('multiplier')
-      let visual = document.getElementById('visual')
-      keyPush(e)});
+  document.addEventListener("keyup", (e)=>{
+    let score = document.getElementById('score')
+    let multiplier = document.getElementById('multiplier')
+    let visual = document.getElementById('visual')
+    keyPush(e)});
 
     function keyPush(evt) {
       switch(evt.keyCode) {

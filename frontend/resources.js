@@ -6,8 +6,6 @@ let allEFrets = [-510, -545, -570, -610, -635, -665, -700, -725, -765, -790, -11
 let allRFrets = [-350, -390, -415, -455, -480, -510, -545, -570, -610, -635, -820, -855, -880, -920, -945, -975, -1010, -1035, -1075, -1100, -1135, -1165, -1190, -1230, -1255, -1445, -1475, -1500, -1540, -1565];
 let allTFrets = [-665, -700, -725, -765, -790, -820, -855, -880, -920, -945, -1290, -1320, -1345, -1385, -1410, -1445, -1475, -1500, -1540, -1565];
 
-
-
 let gameStart = false
 
 function createArray(allFrets, x, red, green, blue){
@@ -22,8 +20,9 @@ function showArr(fretArr, speed){
   for(let i = 0; i < fretArr.length; i++){
     fretArr[i].show()
     fretArr[i].move(speed)
-    if (fretArr[i].y > CONTAINERHEIGHT){
+    if (fretArr[i].y > CONTAINERHEIGHT-75){
       fretArr.shift();
+      score.innerText = parseInt(score.innerText) - 100
       multiplier.innerText = '1'
       visual.innerText = '.'
     }
@@ -32,7 +31,11 @@ function showArr(fretArr, speed){
 
 function AddScore(fretArr) {
   if(fretArr.length > 0 && gameStart){
-    if(fretArr[0].onInputBox()){
+    if(fretArr[0].onInputBox() || fretArr[1].onInputBox()){
+
+      if(fretArr[1].onInputBox()){
+        fretArr.slice(1)
+      }
       fretArr.shift()
       score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
       visual.innerText += '.'
