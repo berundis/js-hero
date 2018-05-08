@@ -4,16 +4,20 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   button.addEventListener('click', (e)=>{
     e.target.remove()
+    let fragment = document.createDocumentFragment()
     let instructions = document.createElement('h2')
+    
     instructions.innerText = "Choose a song to play!"
-    body.append(instructions)
+    fragment.append(instructions)
     SongAdapter.getSongs()
     .then(resp => {
       resp.forEach((song)=>{
         songButton = document.createElement('button')
         songButton.setAttribute('id', `${song.id}`)
         songButton.innerText = `${song.name} by ${song.artist}`
-        body.append(songButton)})
+        fragment.append(songButton)})
+
+        body.append(fragment)
         body.addEventListener('click', (e)=>{
           if(e.target.tagName == "BUTTON"){
             body.innerHTML = " "
@@ -34,6 +38,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
       let r = playingSong.allRFrets
       let t = playingSong.allTFrets
       setupCanvas(q,w,e,r,t)
+      let canvas = document.querySelector('canvas')
+      canvas.setAttribute('id', `${id}`)
       gameStart = true
       let audio = new Audio('./audio/The White Stripes.mp3');
       audio.play()
@@ -42,23 +48,27 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   function setUpGame() {
     let score = document.createElement('span')
+    let fragment = document.createDocumentFragment()
+    let scoreCard = document.createElement('h2')
+    let multiplier = document.createElement('span')
+    let multiplierCard = document.createElement('h2')
+    let multiplierVisual = document.createElement('p')
+
     score.setAttribute('id', 'score')
     score.innerText = '0'
-    let scoreCard = document.createElement('h2')
     scoreCard.innerText = 'Score: '
-    scoreCard.append(score)
-    body.append(scoreCard)
-    let multiplier = document.createElement('span')
     multiplier.setAttribute('id', 'multiplier')
     multiplier.innerText = '1'
-    let multiplierCard = document.createElement('h2')
     multiplierCard.innerText = 'Multiplier: x '
-    multiplierCard.append(multiplier)
-    body.append(multiplierCard)
-    let multiplierVisual = document.createElement('p')
     multiplierVisual.setAttribute('id', 'visual')
     multiplierVisual.innerText = "."
-    body.append(multiplierVisual)
+
+    scoreCard.append(score)
+    multiplierCard.append(multiplier)
+    fragment.append(scoreCard)
+    fragment.append(multiplierCard)
+    fragment.append(multiplierVisual)
+    body.append(fragment)
   }
 
   document.addEventListener("keyup", (e)=>{
