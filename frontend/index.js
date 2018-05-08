@@ -27,6 +27,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
     SongAdapter.getSong(id)
     .then(song => {
       setUpGame()
+      let playingSong = SONGS[parseInt(id)-1]
+      let q = playingSong.allQFrets
+      let w = playingSong.allWFrets
+      let e = playingSong.allEFrets
+      let r = playingSong.allRFrets
+      let t = playingSong.allTFrets
+      setupCanvas(q,w,e,r,t)
       gameStart = true
       let audio = new Audio('./audio/The White Stripes.mp3');
       audio.play()
@@ -55,10 +62,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }
 
   document.addEventListener("keyup", (e)=>{
+    if(gameStart){
     let score = document.getElementById('score')
     let multiplier = document.getElementById('multiplier')
     let visual = document.getElementById('visual')
-    keyPush(e)});
+    keyPush(e)}});
 
     function keyPush(evt) {
       switch(evt.keyCode) {

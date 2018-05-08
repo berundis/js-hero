@@ -1,11 +1,10 @@
-function setup() {
+function setupCanvas(q, w, e, r, t) {
   createCanvas(560, CONTAINERHEIGHT);
-  qArr = createArray(allQFrets1, 80, 255, 0, 0);
-  wArr = createArray(allWFrets1, 160, 0, 0, 255);
-  eArr = createArray(allEFrets1, 240, 0, 255, 0);
-  rArr = createArray(allRFrets1, 320, 255, 128, 0);
-  tArr = createArray(allTFrets1, 400, 255, 0, 255);
-
+  qArr = createArray(q, 80, 255, 0, 0);
+  wArr = createArray(w, 160, 0, 0, 255);
+  eArr = createArray(e, 240, 0, 255, 0);
+  rArr = createArray(r, 320, 255, 128, 0);
+  tArr = createArray(t, 400, 255, 0, 255);
   qbox = new Input(80, 255, 0, 0)
   wbox = new Input(160, 0, 0, 255);
   ebox = new Input(240, 0, 255, 0);
