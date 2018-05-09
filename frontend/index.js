@@ -22,56 +22,10 @@ function mainPageSetup() {
   fragment.append(seeScores)
   mainBody.append(fragment)
 
-  seeScoresEventListener(seeScores)
-  playGameEventListener(playButton)
+  mainButtonsEventListener([seeScores, playButton])
 }
 
-function seeScoresEventListener(seeScoresButton) {
-  seeScoresButton.addEventListener('click', (e)=>{
-    mainBody.innerHTML = " "
-    let fragment = document.createDocumentFragment()
-    let instructions = document.createElement('h2')
-    let homePage = document.createElement('p')
-    SONGS = []
-
-    instructions.innerText = "Choose a song to see its scores!"
-    homePage.innerText = "Home"
-    homePage.setAttribute('id', 'homepage')
-
-    fragment.append(homePage)
-    fragment.append(instructions)
-    homePageEventListener(homePage)
-    SongAdapter.getSongs()
-    .then(resp => {
-      resp.forEach((song)=>{
-          SONGS.push(song)
-          songButton = document.createElement('button')
-          songButton.setAttribute('id', `${song.id}`)
-          songButton.setAttribute('class', 'song-buttons')
-          songButton.innerText = `${song.name} by ${song.artist}`
-          fragment.append(songButton)
-        }
-      )
-
-      mainBody.append(fragment)
-      let songButtons = document.getElementsByClassName('song-buttons')
-      for (var i = 0; i < songButtons.length; i++) {
-        songButtons[i].addEventListener('click',(e)=>{
-          mainBody.innerHTML = " "
-          getSongScores(e.target.id)
-        })}
-      })
-    })
-}
-
-function homePageEventListener(homePage) {
-  homePage.addEventListener('click', ()=>{
-    mainPageSetup()
-  })
-}
-
-function playGameEventListener(playButton) {
-  playButton.addEventListener('click', (e)=>{
+function setUpSongButtons(e) {
   mainBody.innerHTML = " "
   let fragment = document.createDocumentFragment()
   let instructions = document.createElement('h2')
@@ -80,83 +34,61 @@ function playGameEventListener(playButton) {
 
   homePage.innerText = "Home"
   homePage.setAttribute('id', 'homepage')
-  instructions.innerText = "Choose a song to play!"
 
   fragment.append(homePage)
   fragment.append(instructions)
-  SongAdapter.getSongs()
-  .then(resp => {
-    resp.forEach((song)=>{
-      SONGS.push(song)
-      songButton = document.createElement('button')
-      songButton.setAttribute('id', `${song.id}`)
-      songButton.setAttribute('class', 'song-buttons')
-      songButton.innerText = `${song.name} by ${song.artist}`
-      fragment.append(songButton)
-    }
-  )
+
+  if(e.target.id == 'see-scores'){
+    instructions.innerText = 'Choose a song to see its scores!'
+  } else if(e.target.id == 'play-game'){
+    instructions.innerText = 'Choose a song to play!'
+  }
 
   homePageEventListener(homePage)
-  mainBody.append(fragment)
-  let songButtons = document.getElementsByClassName('song-buttons')
-  for (var i = 0; i < songButtons.length; i++) {
-    songButtons[i].addEventListener('click',(e)=>{
-      mainBody.innerHTML = " "
-      setUpSong(e.target.id)
-    })}
+  return fragment
+}
+
+function mainButtonsEventListener(arr) {
+  arr.forEach(element => {
+    element.addEventListener('click', (e)=>{
+      let fragment = setUpSongButtons(e)
+      SongAdapter.getSongs()
+      .then(resp => {
+        resp.forEach((song)=>{
+            SONGS.push(song)
+            songButton = document.createElement('button')
+            songButton.setAttribute('id', `${song.id}`)
+            songButton.setAttribute('class', 'song-buttons')
+            songButton.innerText = `${song.name} by ${song.artist}`
+            fragment.append(songButton)
+          }
+        )
+
+        mainBody.append(fragment)
+        let songButtons = document.getElementsByClassName('song-buttons')
+        for (var i = 0; i < songButtons.length; i++) {
+          songButtons[i].addEventListener('click',(event)=>{
+            mainBody.innerHTML = " "
+            if(e.target.id == 'see-scores'){
+              getSongScores(event.target.id)
+            } else if(e.target.id == 'play-game'){
+              setUpSong(event.target.id)
+            }
+
+          })}
+        })
+    })
   })
-})
+}
+
+function homePageEventListener(homePage) {
+  homePage.addEventListener('click', ()=>{
+    mainPageSetup()
+  })
 }
 
 function findById(songs, songID){
   return songs.filter(song=> (song.id == songID))[0]
-}
-
-function createArray(allFrets, x, red, green, blue){
-  let arr = []
-  for (var i = 0; i < allFrets.length; i++) {
-    arr[i] = new Fret(x, allFrets[i], red, green, blue)
-  }
-  return arr
-}
-
-function showArr(fretArr, speed){
-  for(let i = 0; i < fretArr.length; i++){
-    fretArr[i].show()
-    fretArr[i].move(speed)
-    if (fretArr[i].y > CONTAINERHEIGHT-75){
-      fretArr.shift();
-      score.innerText = parseInt(score.innerText) - 100
-      multiplier.innerText = '1'
-      visual.innerText = '.'
-    }
-  }
-}
-
-function AddScore(fretArr) {
-  if(fretArr.length > 0){
-    if(fretArr[0].onInputBox() || fretArr[1].onInputBox()){
-
-      if(fretArr[1].onInputBox()){
-        fretArr.slice(1)
-
-      }
-      fretArr.shift()
-
-      score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
-      visual.innerText += '.'
-      if(visual.innerText == '............'){
-        multiplier.innerText = parseInt(multiplier.innerText) + 1
-        visual.innerText = '.'
-      }
-
-    }else {
-
-      score.innerText = parseInt(score.innerText) - 100
-      visual.innerText = '.'
-      multiplier.innerText = '1'
-    }
-  }
 }
 
 function getSongScores(id) {
@@ -166,6 +98,24 @@ function getSongScores(id) {
     })
 }
 
+function setUpScores(scoreArray) {
+  let list = document.createElement('ul')
+
+  let homePage = document.createElement('p')
+  homePage.innerText = "Home"
+  homePage.setAttribute('id', 'homepage')
+  list.append(homePage)
+
+  homePageEventListener(homePage)
+
+  let orderedScores = scoreArray.sort((a,b) => b.value - a.value)
+  orderedScores.forEach((score) =>{
+    let scoreList = document.createElement('li')
+    scoreList.innerText = `${score.name} scored ${score.value} points!`
+    list.append(scoreList)
+  })
+  mainBody.append(list)
+}
 
 function setUpSong(id) {
   SongAdapter.getSong(id)
@@ -211,25 +161,6 @@ function setUpGame() {
   mainBody.append(fragment)
 }
 
-function setUpScores(scoreArray) {
-  let list = document.createElement('ul')
-
-  let homePage = document.createElement('p')
-  homePage.innerText = "Home"
-  homePage.setAttribute('id', 'homepage')
-  list.append(homePage)
-
-  homePageEventListener(homePage)
-
-  let orderedScores = scoreArray.sort((a,b) => b.value - a.value)
-  orderedScores.forEach((score) =>{
-    let scoreList = document.createElement('li')
-    scoreList.innerText = `${score.name} scored ${score.value} points!`
-    list.append(scoreList)
-  })
-  mainBody.append(list)
-}
-
 document.addEventListener("keyup", (e)=>{
   if(gameStart){
   let score = document.getElementById('score')
@@ -271,6 +202,13 @@ function endGame() {
   scoreForm(points, songId)
 }
 
+function renderForm(points) {
+  return `<form id="scoreSubmit">
+  Name: <input type=text id="player-name" placeholder="Cannot be empty!"><br>
+  <input type="submit" id="submit-points-form" value="Submit">
+  </form>`
+}
+
 function scoreForm(points, songId) {
   let form = document.createElement('div')
   form.innerHTML = renderForm(points)
@@ -280,22 +218,14 @@ function scoreForm(points, songId) {
   submitButton.addEventListener('click', (e)=>{
     e.preventDefault()
     let playerName = document.getElementById('player-name').value
-
     if(playerName && playerName.trim()){
       e.preventDefault()
       let scoreObj = {name: playerName.trim(), value: points, song_id: songId}
       ScoreAdapter.createScore(scoreObj)
       .then(resp => {
         mainBody.innerHTML = ' '
-        mainPageSetup()
+        getSongScores(songId)
       })
     }
   })
-}
-
-function renderForm(points) {
-  return `<form id="scoreSubmit">
-  Name: <input type=text id="player-name" placeholder="Cannot be empty!"><br>
-  <input type="submit" id="submit-points-form" value="Submit">
-  </form>`
 }
