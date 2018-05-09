@@ -36,7 +36,7 @@ function draw() {
     if(starter){
       starter = false
       let songPlaying = findById(SONGS, canvas.id)
-      setTimeout(()=>{endGame()}, 3* 1000)
+      setTimeout(()=>{endGame()}, 2* 1000)
     }
   }
 }

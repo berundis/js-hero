@@ -4,6 +4,24 @@ let starter = true
 let SONGS = []
 const mainBody = document.getElementById('mainbody')
 
+function mainPageSetup() {
+  let playButton = document.createElement('button')
+  let seeScores = document.createElement('button')
+  let fragment = document.createDocumentFragment()
+
+  playButton.setAttribute('id', 'play-game')
+  playButton.setAttribute('class', 'main-buttons')
+  playButton.innerText = "Play Keytar Hero!"
+
+  seeScores.setAttribute('id', 'see-scores')
+  seeScores.setAttribute('class', 'main-buttons')
+  seeScores.innerText = "See High Scores"
+
+  fragment.append(playButton)
+  fragment.append(seeScores)
+  mainBody.append(fragment)
+}
+
 function findById(songs, songID){
   return songs.filter(song=> (song.id == songID))[0]
 }
@@ -22,6 +40,7 @@ function showArr(fretArr, speed){
     fretArr[i].show()
     fretArr[i].move(speed)
     if (fretArr[i].y > CONTAINERHEIGHT-75){
+      fretArr.shift();
       score.innerText = parseInt(score.innerText) - 100
       multiplier.innerText = '1'
       visual.innerText = '.'
@@ -36,7 +55,8 @@ function AddScore(fretArr) {
       if(fretArr[1].onInputBox()){
         fretArr.slice(1)
 
-      } else { fretArr.shift() }
+      }
+      fretArr.shift() 
 
       score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
       visual.innerText += '.'
@@ -52,20 +72,4 @@ function AddScore(fretArr) {
       multiplier.innerText = '1'
     }
   }
-}
-
-function mainPageSetup() {
-  let playButton = document.createElement('button')
-  let seeScores = document.createElement('button')
-  let fragment = document.createDocumentFragment()
-
-  playButton.setAttribute('id', 'play-game')
-  playButton.innerText = "Play Keytar Hero!"
-
-  seeScores.setAttribute('id', 'see-scores')
-  seeScores.innerText = "See High Scores"
-
-  fragment.append(playButton)
-  fragment.append(seeScores)
-  mainBody.append(fragment)
 }

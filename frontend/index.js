@@ -1,9 +1,45 @@
 document.addEventListener("DOMContentLoaded", ()=>{
   mainPageSetup()
+  const seeScoresButton = document.getElementById('see-scores')
   const playButton = document.getElementById('play-game')
 
+  // seeScoresButton.addEventListener('click', (e)=>{
+  //   mainBody.innerHTML = " "
+  //   let fragment = document.createDocumentFragment()
+  //   let instructions = document.createElement('h2')
+  //
+  //   instructions.innerText = "Choose a song to see its scores!"
+  //   fragment.append(instructions)
+  //   SongAdapter.getSongs()
+  //   .then(resp => {
+  //     resp.forEach((song)=>{
+  //       SONGS.push(song)
+  //       songButton = document.createElement('button')
+  //       songButton.setAttribute('id', `${song.id}`)
+  //       songButton.innerText = `${song.name} by ${song.artist}`
+  //       fragment.append(songButton)
+  //     }
+  //   )
+  //
+  //   mainBody.append(fragment)
+  //   mainBody.addEventListener('click', (e)=>{
+  //     if(e.target.tagName == "BUTTON"){
+  //       mainBody.innerHTML = " "
+  //       getSongScores(e.target.id)
+  //       }
+  //     })
+  //   })
+  // })
+  //
+  // function getSongScores(id) {
+  //   SongAdapter.getSong(id)
+  //     .then(song =>{
+  //       setUpScores(song.scores)
+  //     })
+  // }
+
   playButton.addEventListener('click', (e)=>{
-    e.target.remove()
+    mainBody.innerHTML = " "
     let fragment = document.createDocumentFragment()
     let instructions = document.createElement('h2')
 
@@ -21,21 +57,22 @@ document.addEventListener("DOMContentLoaded", ()=>{
     )
 
     mainBody.append(fragment)
+
+
+
     mainBody.addEventListener('click', (e)=>{
       if(e.target.tagName == "BUTTON"){
         mainBody.innerHTML = " "
+        console.log("hi");
         setUpSong(e.target.id)}
       })
     })
   })
 
-
   function setUpSong(id) {
     SongAdapter.getSong(id)
     .then(song => {
       setUpGame()
-      setUpScores(song.scores)
-
       let playingSong = SONGNOTES[parseInt(id)-1]
       let q = playingSong.allQFrets
       let w = playingSong.allWFrets
@@ -80,7 +117,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   function setUpScores(scoreArray) {
     let list = document.createElement('ul')
-    let highScores = scoreArray.sort((a,b) => b.value - a.value).slice(0,3)
+    let highScores = scoreArray.sort((a,b) => b.value - a.value)
     highScores.forEach((score) =>{
       let scoreList = document.createElement('li')
       scoreList.innerText = `${score.name} scored ${score.value} points!`
