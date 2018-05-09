@@ -36,19 +36,38 @@ function draw() {
   if(starter){
     starter = false
     let songPlaying = findById(SONGS, canvas.id)
-    setTimeout(()=>{endGame()}, songPlaying.duration * 1000)
+    setTimeout(()=>{endGame()}, 3* 1000)
   }
 }}
 
 function endGame() {
   gameStart = false
   noLoop()
-  let mainBody = document.getElementById('mainbody')
   let finalScore = document.createElement('h2')
-
-  finalScore.innerText = score.innerText
+  let points = score.innerText
+  finalScore.innerText = `Your score is ${points}.`
   mainBody.innerHTML = ""
+  mainBody.append(finalScore)
+  canvas.remove()
+  scoreForm(points)
+}
 
-  // canvas.remove()
+function scoreForm(points) {
+  let form = document.createElement('div')
+  form.innerHTML = renderForm(points)
+  mainBody.append(form)
+  let submitButton = document.getElementById('submit-points-form')
+  let playerName = document.getElementById('player-name')
+  submitButton.addEventListener('click', (e)=>{
+    e.preventDefault()
+    
+    console.log(playerName.value);
+  })
+}
 
+function renderForm(points) {
+  return `<form id="scoreSubmit">
+  Name: <input type=text id="player-name"><br>
+  <input type="submit" id="submit-points-form" value="Submit">
+  </form>`
 }

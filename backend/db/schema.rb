@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20180507202903) do
   enable_extension "plpgsql"
 
   create_table "scores", force: :cascade do |t|
-    t.string "initials"
+    t.string "name"
     t.integer "value"
     t.integer "song_id"
   end

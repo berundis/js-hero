@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", ()=>{
   const button = document.getElementById('play-game')
-  const mainBody = document.getElementById('mainbody')
 
   button.addEventListener('click', (e)=>{
     e.target.remove()
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     .then(song => {
       setUpGame()
       setUpScores(song.scores)
-      
+
       let playingSong = SONGNOTES[parseInt(id)-1]
       let q = playingSong.allQFrets
       let w = playingSong.allWFrets
@@ -82,7 +81,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     let highScores = scoreArray.sort((a,b) => b.value - a.value).slice(0,3)
     highScores.forEach((score) =>{
       let scoreList = document.createElement('li')
-      scoreList.innerText = `${score.initials} scored ${score.value} points!`
+      scoreList.innerText = `${score.name} scored ${score.value} points!`
       list.append(scoreList)
     })
     mainBody.append(list)

@@ -1,4 +1,4 @@
 class ScoreSerializer < ActiveModel::Serializer
-  attributes :id, :initials, :value
+  attributes :id, :name, :value
   belongs_to :song
 end
