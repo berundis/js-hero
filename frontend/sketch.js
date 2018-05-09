@@ -1,3 +1,5 @@
+mainPageSetup()
+
 function setupCanvas(q, w, e, r, t) {
   createCanvas(560, CONTAINERHEIGHT);
   qArr = createArray(q, 80, 255, 0, 0);
@@ -43,7 +45,7 @@ function draw() {
 
 function endGame() {
   gameStart = false
-  noLoop()
+  starter = true
   let finalScore = document.createElement('h2')
   let points = score.innerText
   let songId = canvas.id
