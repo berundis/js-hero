@@ -24,7 +24,8 @@ ActiveRecord::Schema.define(version: 20180507202903) do
   create_table "songs", force: :cascade do |t|
     t.string "name"
     t.string "artist"
-    t.string "fileName"
+    t.string "filePath"
+    t.integer "duration"
   end
 
 end

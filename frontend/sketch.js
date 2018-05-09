@@ -28,4 +28,27 @@ function draw() {
   showArr(eArr, 2)
   showArr(rArr, 2)
   showArr(tArr, 2)
+  text("Q", 105, CONTAINERHEIGHT - 85)
+  text("W", 185, CONTAINERHEIGHT - 85)
+  text("E", 265, CONTAINERHEIGHT - 85)
+  text("R", 345, CONTAINERHEIGHT - 85)
+  text("T", 425, CONTAINERHEIGHT - 85)
+  if(starter){
+    starter = false
+    let songPlaying = findById(SONGS, canvas.id)
+    setTimeout(()=>{endGame()}, songPlaying.duration * 1000)
+  }
 }}
+
+function endGame() {
+  gameStart = false
+  noLoop()
+  let mainBody = document.getElementById('mainbody')
+  let finalScore = document.createElement('h2')
+
+  finalScore.innerText = score.innerText
+  mainBody.innerHTML = ""
+
+  // canvas.remove()
+
+}

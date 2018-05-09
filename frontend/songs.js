@@ -1,7 +1,7 @@
-const SONGS = []
+const SONGNOTES = []
 // WHITE STRIPES
 
-let song1 = {
+const song1 = {
   allQFrets: [-2195, -2225, -2250, -2290, -2315,   /// LOOP 1
     -2795, -2825, -2850, -2890, -2915,
     -3095,
@@ -158,4 +158,14 @@ let song1 = {
     -2645, -2675, -2700, -2740, -2765]
   }
 
-SONGS.push(song1)
+const song2={
+  allQFrets: [0, -250, -1000],
+  allWFrets: [],
+  allEFrets: [],
+  allRFrets: [],
+  allTFrets: [],
+
+}
+
+SONGNOTES.push(song1)
+SONGNOTES.push(song2)

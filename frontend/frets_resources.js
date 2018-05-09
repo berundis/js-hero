@@ -1,5 +1,12 @@
 const CONTAINERHEIGHT = 600;
 let gameStart = false
+let starter = true
+let SONGS = []
+
+function findById(songs, songID){
+  return songs.filter(song=> (song.id == songID))[0]
+}
+
 
 function createArray(allFrets, x, red, green, blue){
   let arr = []
@@ -14,7 +21,6 @@ function showArr(fretArr, speed){
     fretArr[i].show()
     fretArr[i].move(speed)
     if (fretArr[i].y > CONTAINERHEIGHT-75){
-      fretArr.shift();
       score.innerText = parseInt(score.innerText) - 100
       multiplier.innerText = '1'
       visual.innerText = '.'
@@ -27,16 +33,23 @@ function AddScore(fretArr) {
     if(fretArr[0].onInputBox() || fretArr[1].onInputBox()){
 
       if(fretArr[1].onInputBox()){
+        console.log('hit');
         fretArr.slice(1)
-      }
-      fretArr.shift()
+
+      } else { fretArr.shift()}
+
+      console.log(fretArr);
       score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
       visual.innerText += '.'
       if(visual.innerText == '............'){
         multiplier.innerText = parseInt(multiplier.innerText) + 1
         visual.innerText = '.'
       }
+
     }else {
+
+      console.log(fretArr);
+
       score.innerText = parseInt(score.innerText) - 100
       visual.innerText = '.'
       multiplier.innerText = '1'
