@@ -38,49 +38,8 @@ function draw() {
     if(starter){
       starter = false
       let songPlaying = findById(SONGS, canvas.id)
+      console.log(songPlaying);
       setTimeout(()=>{endGame()}, 2* 1000)
     }
   }
-}
-
-function endGame() {
-  gameStart = false
-  starter = true
-  let finalScore = document.createElement('h2')
-  let points = score.innerText
-  let songId = canvas.id
-  finalScore.innerText = `Your score is ${points}.`
-  mainBody.innerHTML = ""
-  mainBody.append(finalScore)
-  canvas.remove()
-  scoreForm(points, songId)
-}
-
-function scoreForm(points, songId) {
-  let form = document.createElement('div')
-  form.innerHTML = renderForm(points)
-  mainBody.append(form)
-
-  let submitButton = document.getElementById('submit-points-form')
-  submitButton.addEventListener('click', (e)=>{
-    e.preventDefault()
-    let playerName = document.getElementById('player-name').value
-
-    if(playerName && playerName.trim()){
-      e.preventDefault()
-      let scoreObj = {name: playerName.trim(), value: points, song_id: songId}
-      ScoreAdapter.createScore(scoreObj)
-      .then(resp => {
-        mainBody.innerHTML = ' '
-        mainPageSetup()
-      })
-    }
-  })
-}
-
-function renderForm(points) {
-  return `<form id="scoreSubmit">
-  Name: <input type=text id="player-name" placeholder="Cannot be empty!"><br>
-  <input type="submit" id="submit-points-form" value="Submit">
-  </form>`
 }

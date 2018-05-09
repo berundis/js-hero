@@ -5,6 +5,7 @@ let SONGS = []
 const mainBody = document.getElementById('mainbody')
 
 function mainPageSetup() {
+  mainBody.innerHTML = ' '
   let playButton = document.createElement('button')
   let seeScores = document.createElement('button')
   let fragment = document.createDocumentFragment()
@@ -25,20 +26,25 @@ function mainPageSetup() {
   playGameEventListener(playButton)
 }
 
-
 function seeScoresEventListener(seeScoresButton) {
   seeScoresButton.addEventListener('click', (e)=>{
     mainBody.innerHTML = " "
     let fragment = document.createDocumentFragment()
     let instructions = document.createElement('h2')
+    let homePage = document.createElement('p')
+    SONGS = []
 
     instructions.innerText = "Choose a song to see its scores!"
+    homePage.innerText = "Home"
+    homePage.setAttribute('id', 'homepage')
+
+    fragment.append(homePage)
     fragment.append(instructions)
+    homePageEventListener(homePage)
     SongAdapter.getSongs()
     .then(resp => {
       resp.forEach((song)=>{
-        if(SONGS.length == 0){
-          SONGS.push(song)}
+          SONGS.push(song)
           songButton = document.createElement('button')
           songButton.setAttribute('id', `${song.id}`)
           songButton.setAttribute('class', 'song-buttons')
@@ -58,19 +64,30 @@ function seeScoresEventListener(seeScoresButton) {
     })
 }
 
+function homePageEventListener(homePage) {
+  homePage.addEventListener('click', ()=>{
+    mainPageSetup()
+  })
+}
+
 function playGameEventListener(playButton) {
   playButton.addEventListener('click', (e)=>{
   mainBody.innerHTML = " "
   let fragment = document.createDocumentFragment()
   let instructions = document.createElement('h2')
+  let homePage = document.createElement('p')
+  SONGS = []
 
+  homePage.innerText = "Home"
+  homePage.setAttribute('id', 'homepage')
   instructions.innerText = "Choose a song to play!"
+
+  fragment.append(homePage)
   fragment.append(instructions)
   SongAdapter.getSongs()
   .then(resp => {
     resp.forEach((song)=>{
-      if(SONGS.length == 0){
-      SONGS.push(song)}
+      SONGS.push(song)
       songButton = document.createElement('button')
       songButton.setAttribute('id', `${song.id}`)
       songButton.setAttribute('class', 'song-buttons')
@@ -79,6 +96,7 @@ function playGameEventListener(playButton) {
     }
   )
 
+  homePageEventListener(homePage)
   mainBody.append(fragment)
   let songButtons = document.getElementsByClassName('song-buttons')
   for (var i = 0; i < songButtons.length; i++) {
@@ -93,7 +111,6 @@ function playGameEventListener(playButton) {
 function findById(songs, songID){
   return songs.filter(song=> (song.id == songID))[0]
 }
-
 
 function createArray(allFrets, x, red, green, blue){
   let arr = []
@@ -163,8 +180,6 @@ function setUpSong(id) {
     setupCanvas(q,w,e,r,t)
     let canvas = document.querySelector('canvas')
     canvas.setAttribute('id', `${id}`)
-    console.log(canvas);
-
     gameStart = true
     let audio = new Audio('./audio/The White Stripes.mp3');
     audio.play()
@@ -198,8 +213,16 @@ function setUpGame() {
 
 function setUpScores(scoreArray) {
   let list = document.createElement('ul')
-  let highScores = scoreArray.sort((a,b) => b.value - a.value)
-  highScores.forEach((score) =>{
+
+  let homePage = document.createElement('p')
+  homePage.innerText = "Home"
+  homePage.setAttribute('id', 'homepage')
+  list.append(homePage)
+
+  homePageEventListener(homePage)
+
+  let orderedScores = scoreArray.sort((a,b) => b.value - a.value)
+  orderedScores.forEach((score) =>{
     let scoreList = document.createElement('li')
     scoreList.innerText = `${score.name} scored ${score.value} points!`
     list.append(scoreList)
@@ -233,4 +256,46 @@ function keyPush(evt) {
     AddScore(tArr)
     break;
   }
+}
+
+function endGame() {
+  gameStart = false
+  starter = true
+  let finalScore = document.createElement('h2')
+  let points = score.innerText
+  let songId = canvas.id
+  finalScore.innerText = `Your score is ${points}.`
+  mainBody.innerHTML = ""
+  mainBody.append(finalScore)
+  canvas.remove()
+  scoreForm(points, songId)
+}
+
+function scoreForm(points, songId) {
+  let form = document.createElement('div')
+  form.innerHTML = renderForm(points)
+  mainBody.append(form)
+
+  let submitButton = document.getElementById('submit-points-form')
+  submitButton.addEventListener('click', (e)=>{
+    e.preventDefault()
+    let playerName = document.getElementById('player-name').value
+
+    if(playerName && playerName.trim()){
+      e.preventDefault()
+      let scoreObj = {name: playerName.trim(), value: points, song_id: songId}
+      ScoreAdapter.createScore(scoreObj)
+      .then(resp => {
+        mainBody.innerHTML = ' '
+        mainPageSetup()
+      })
+    }
+  })
+}
+
+function renderForm(points) {
+  return `<form id="scoreSubmit">
+  Name: <input type=text id="player-name" placeholder="Cannot be empty!"><br>
+  <input type="submit" id="submit-points-form" value="Submit">
+  </form>`
 }
