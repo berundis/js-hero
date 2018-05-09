@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", ()=>{
-  const button = document.getElementById('play-game')
+  mainPageSetup()
+  const playButton = document.getElementById('play-game')
 
-  button.addEventListener('click', (e)=>{
+  playButton.addEventListener('click', (e)=>{
     e.target.remove()
     let fragment = document.createDocumentFragment()
     let instructions = document.createElement('h2')
@@ -15,17 +16,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
         songButton = document.createElement('button')
         songButton.setAttribute('id', `${song.id}`)
         songButton.innerText = `${song.name} by ${song.artist}`
-        fragment.append(songButton)})
+        fragment.append(songButton)
+      }
+    )
 
-        mainBody.append(fragment)
-        mainBody.addEventListener('click', (e)=>{
-          if(e.target.tagName == "BUTTON"){
-            mainBody.innerHTML = " "
-            setUpSong(e.target.id)
-          }
-        })
+    mainBody.append(fragment)
+    mainBody.addEventListener('click', (e)=>{
+      if(e.target.tagName == "BUTTON"){
+        mainBody.innerHTML = " "
+        setUpSong(e.target.id)}
       })
     })
+  })
 
 
   function setUpSong(id) {

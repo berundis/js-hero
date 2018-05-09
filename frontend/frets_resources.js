@@ -53,3 +53,19 @@ function AddScore(fretArr) {
     }
   }
 }
+
+function mainPageSetup() {
+  let playButton = document.createElement('button')
+  let seeScores = document.createElement('button')
+  let fragment = document.createDocumentFragment()
+
+  playButton.setAttribute('id', 'play-game')
+  playButton.innerText = "Play Keytar Hero!"
+
+  seeScores.setAttribute('id', 'see-scores')
+  seeScores.innerText = "See High Scores"
+
+  fragment.append(playButton)
+  fragment.append(seeScores)
+  mainBody.append(fragment)
+}

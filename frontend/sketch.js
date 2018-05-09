@@ -14,60 +14,71 @@ function setupCanvas(q, w, e, r, t) {
 
 function draw() {
   if(gameStart){
-  background(51);
-  qbox.show()
-  wbox.show()
-  ebox.show()
-  rbox.show()
-  tbox.show()
-  let score = document.getElementById('score')
-  let multiplier = document.getElementById('multiplier')
-  let visual = document.getElementById('visual')
-  showArr(qArr, 2)
-  showArr(wArr, 2)
-  showArr(eArr, 2)
-  showArr(rArr, 2)
-  showArr(tArr, 2)
-  text("Q", 105, CONTAINERHEIGHT - 85)
-  text("W", 185, CONTAINERHEIGHT - 85)
-  text("E", 265, CONTAINERHEIGHT - 85)
-  text("R", 345, CONTAINERHEIGHT - 85)
-  text("T", 425, CONTAINERHEIGHT - 85)
-  if(starter){
-    starter = false
-    let songPlaying = findById(SONGS, canvas.id)
-    setTimeout(()=>{endGame()}, 3* 1000)
+    background(51);
+    qbox.show()
+    wbox.show()
+    ebox.show()
+    rbox.show()
+    tbox.show()
+    let score = document.getElementById('score')
+    let multiplier = document.getElementById('multiplier')
+    let visual = document.getElementById('visual')
+    showArr(qArr, 2)
+    showArr(wArr, 2)
+    showArr(eArr, 2)
+    showArr(rArr, 2)
+    showArr(tArr, 2)
+    text("Q", 105, CONTAINERHEIGHT - 85)
+    text("W", 185, CONTAINERHEIGHT - 85)
+    text("E", 265, CONTAINERHEIGHT - 85)
+    text("R", 345, CONTAINERHEIGHT - 85)
+    text("T", 425, CONTAINERHEIGHT - 85)
+    if(starter){
+      starter = false
+      let songPlaying = findById(SONGS, canvas.id)
+      setTimeout(()=>{endGame()}, 3* 1000)
+    }
   }
-}}
+}
 
 function endGame() {
   gameStart = false
   noLoop()
   let finalScore = document.createElement('h2')
   let points = score.innerText
+  let songId = canvas.id
   finalScore.innerText = `Your score is ${points}.`
   mainBody.innerHTML = ""
   mainBody.append(finalScore)
   canvas.remove()
-  scoreForm(points)
+  scoreForm(points, songId)
 }
 
-function scoreForm(points) {
+function scoreForm(points, songId) {
   let form = document.createElement('div')
   form.innerHTML = renderForm(points)
   mainBody.append(form)
+
   let submitButton = document.getElementById('submit-points-form')
-  let playerName = document.getElementById('player-name')
   submitButton.addEventListener('click', (e)=>{
     e.preventDefault()
-    
-    console.log(playerName.value);
+    let playerName = document.getElementById('player-name').value
+
+    if(playerName && playerName.trim()){
+      e.preventDefault()
+      let scoreObj = {name: playerName.trim(), value: points, song_id: songId}
+      ScoreAdapter.createScore(scoreObj)
+      .then(resp => {
+        mainBody.innerHTML = ' '
+        mainPageSetup()
+      })
+    }
   })
 }
 
 function renderForm(points) {
   return `<form id="scoreSubmit">
-  Name: <input type=text id="player-name"><br>
+  Name: <input type=text id="player-name" placeholder="Cannot be empty!"><br>
   <input type="submit" id="submit-points-form" value="Submit">
   </form>`
 }

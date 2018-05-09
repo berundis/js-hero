@@ -1,13 +1,13 @@
 class ScoreAdapter{
 
-  static createScore(){
-    return fetch('http://localhost:3000/api/v1/songs')
+  static createScore(scoreObj){
+    return fetch('http://localhost:3000/api/v1/scores', {
+      method: 'POST',
+      headers: {'CONTENT-Type': 'application/json'},
+      body: JSON.stringify(scoreObj)
+    })
     .then(res => res.json())
   }
 
-  static getSong(id){
-    return fetch(`http://localhost:3000/api/v1/songs/${id}`)
-    .then(res => res.json())
-  }
 
 }
