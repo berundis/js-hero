@@ -56,7 +56,7 @@ function AddScore(fretArr) {
         fretArr.slice(1)
 
       }
-      fretArr.shift() 
+      fretArr.shift()
 
       score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
       visual.innerText += '.'

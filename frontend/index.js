@@ -3,40 +3,44 @@ document.addEventListener("DOMContentLoaded", ()=>{
   const seeScoresButton = document.getElementById('see-scores')
   const playButton = document.getElementById('play-game')
 
-  // seeScoresButton.addEventListener('click', (e)=>{
-  //   mainBody.innerHTML = " "
-  //   let fragment = document.createDocumentFragment()
-  //   let instructions = document.createElement('h2')
-  //
-  //   instructions.innerText = "Choose a song to see its scores!"
-  //   fragment.append(instructions)
-  //   SongAdapter.getSongs()
-  //   .then(resp => {
-  //     resp.forEach((song)=>{
-  //       SONGS.push(song)
-  //       songButton = document.createElement('button')
-  //       songButton.setAttribute('id', `${song.id}`)
-  //       songButton.innerText = `${song.name} by ${song.artist}`
-  //       fragment.append(songButton)
-  //     }
-  //   )
-  //
-  //   mainBody.append(fragment)
-  //   mainBody.addEventListener('click', (e)=>{
-  //     if(e.target.tagName == "BUTTON"){
-  //       mainBody.innerHTML = " "
-  //       getSongScores(e.target.id)
-  //       }
-  //     })
-  //   })
-  // })
-  //
-  // function getSongScores(id) {
-  //   SongAdapter.getSong(id)
-  //     .then(song =>{
-  //       setUpScores(song.scores)
-  //     })
-  // }
+
+  seeScoresButton.addEventListener('click', (e)=>{
+      mainBody.innerHTML = " "
+      let fragment = document.createDocumentFragment()
+      let instructions = document.createElement('h2')
+
+      instructions.innerText = "Choose a song to see its scores!"
+      fragment.append(instructions)
+      SongAdapter.getSongs()
+      .then(resp => {
+        resp.forEach((song)=>{
+          if(SONGS.length == 0){
+            SONGS.push(song)}
+            songButton = document.createElement('button')
+            songButton.setAttribute('id', `${song.id}`)
+            songButton.setAttribute('class', 'song-buttons')
+            songButton.innerText = `${song.name} by ${song.artist}`
+            fragment.append(songButton)
+          }
+        )
+
+        mainBody.append(fragment)
+        let songButtons = document.getElementsByClassName('song-buttons')
+        for (var i = 0; i < songButtons.length; i++) {
+          songButtons[i].addEventListener('click',(e)=>{
+            mainBody.innerHTML = " "
+            getSongScores(e.target.id)
+          })}
+        })
+      })
+
+
+  function getSongScores(id) {
+    SongAdapter.getSong(id)
+      .then(song =>{
+        setUpScores(song.scores)
+      })
+  }
 
   playButton.addEventListener('click', (e)=>{
     mainBody.innerHTML = " "
@@ -48,24 +52,23 @@ document.addEventListener("DOMContentLoaded", ()=>{
     SongAdapter.getSongs()
     .then(resp => {
       resp.forEach((song)=>{
-        SONGS.push(song)
+        if(SONGS.length == 0){
+        SONGS.push(song)}
         songButton = document.createElement('button')
         songButton.setAttribute('id', `${song.id}`)
+        songButton.setAttribute('class', 'song-buttons')
         songButton.innerText = `${song.name} by ${song.artist}`
         fragment.append(songButton)
       }
     )
 
     mainBody.append(fragment)
-
-
-
-    mainBody.addEventListener('click', (e)=>{
-      if(e.target.tagName == "BUTTON"){
+    let songButtons = document.getElementsByClassName('song-buttons')
+    for (var i = 0; i < songButtons.length; i++) {
+      songButtons[i].addEventListener('click',(e)=>{
         mainBody.innerHTML = " "
-        console.log("hi");
-        setUpSong(e.target.id)}
-      })
+        setUpSong(e.target.id)
+      })}
     })
   })
 
