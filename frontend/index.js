@@ -2,25 +2,39 @@ document.addEventListener("DOMContentLoaded", ()=>{
   const button = document.getElementById('play-game')
   const body = document.getElementById('mainbody')
 
-  button.addEventListener('click', (e)=>{
-    e.target.remove()
-    let instructions = document.createElement('h2')
-    instructions.innerText = "Choose a song to play!"
-    body.append(instructions)
-    SongAdapter.getSongs()
-    .then(resp => {
-      resp.forEach((song)=>{
-        songButton = document.createElement('button')
-        songButton.setAttribute('id', `${song.id}`)
-        songButton.innerText = `${song.name} by ${song.artist}`
-        body.append(songButton)})
-        body.addEventListener('click', (e)=>{
-          if(e.target.tagName == "BUTTON"){
-            body.innerHTML = " "
-            setUpSong(e.target.id)
-          }
-        })
-      })
+  button.addEventListener('click', (evt)=>{
+    evt.target.remove()
+    setUpGame()
+    let playingSong = SONGS[1]
+    let q = playingSong.allQFrets
+          let w = playingSong.allWFrets
+          let e = playingSong.allEFrets
+          let r = playingSong.allRFrets
+          let t = playingSong.allTFrets
+          setupCanvas(q,w,e,r,t)
+          gameStart = true
+          let audio = new Audio("./audio/Phantogram When I'm Small.mp3");
+          audio.play()
+
+
+
+    // let instructions = document.createElement('h2')
+    // instructions.innerText = "Choose a song to play!"
+    // body.append(instructions)
+    // SongAdapter.getSongs()
+    // .then(resp => {
+    //   resp.forEach((song)=>{
+    //     songButton = document.createElement('button')
+    //     songButton.setAttribute('id', `${song.id}`)
+    //     songButton.innerText = `${song.name} by ${song.artist}`
+    //     body.append(songButton)})
+    //     body.addEventListener('click', (e)=>{
+    //       if(e.target.tagName == "BUTTON"){
+    //         body.innerHTML = " "
+    //         setUpSong(e.target.id)
+    //       }
+    //     })
+    //   })
     })
 
   function setUpSong(id) {
@@ -35,7 +49,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
       let t = playingSong.allTFrets
       setupCanvas(q,w,e,r,t)
       gameStart = true
-      let audio = new Audio('./audio/The White Stripes.mp3');
+      let audio = new Audio('./audio/Star Slight.mp3');
       audio.play()
     })
   }
