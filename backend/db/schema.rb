@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20180507202903) do
   enable_extension "plpgsql"
 
   create_table "scores", force: :cascade do |t|
-    t.string "initials"
+    t.string "name"
     t.integer "value"
     t.integer "song_id"
   end
@@ -24,7 +24,8 @@ ActiveRecord::Schema.define(version: 20180507202903) do
   create_table "songs", force: :cascade do |t|
     t.string "name"
     t.string "artist"
-    t.string "fileName"
+    t.string "filePath"
+    t.integer "duration"
   end
 
 end

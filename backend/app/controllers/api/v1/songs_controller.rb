@@ -2,7 +2,7 @@ class Api::V1::SongsController < ApplicationController
 
   def index
     @songs = Song.all
-    render json: @songs, status: 200
+    render json: @songs.to_json(only:[:id, :name, :artist, :filePath, :duration]), status: 200
   end
 
   def show
