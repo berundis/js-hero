@@ -11,4 +11,10 @@ function Input(x, red, green, blue) {
     fill(51)
     rect(this.x, this.y, this.width*6, this.width*2)
   }
+
+  this.pressed = function() {
+    stroke(this.red, this.green, this.blue);
+    fill(179, 236, 255)
+    rect(this.x, this.y, this.width*6, this.width*2)
+  }
 }
