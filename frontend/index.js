@@ -4,6 +4,7 @@ let starter = true
 let SONGS = []
 const mainBody = document.getElementById('mainbody')
 const songDiv = document.getElementById('songContainer')
+let songAudio
 
 function mainPageSetup() {
   mainBody.innerHTML = ' '
@@ -164,8 +165,8 @@ function setUpSong(id) {
     let canvas = document.querySelector('canvas')
     canvas.setAttribute('id', `${id}`)
     gameStart = true
-    let audio = new Audio('./audio/The White Stripes.mp3');
-    audio.play()
+    songAudio = new Audio(song.filePath);
+    songAudio.play()
   })
 }
 
@@ -228,6 +229,7 @@ function keyPush(evt) {
 function endGame() {
   gameStart = false
   starter = true
+  songAudio.pause()
   let finalScore = document.createElement('h3')
   let points = score.innerText
   let songId = canvas.id
