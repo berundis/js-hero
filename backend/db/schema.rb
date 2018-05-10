@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20180507202903) do
     t.string "artist"
     t.string "filePath"
     t.integer "duration"
+    t.string "imagePath"
   end
 
 end

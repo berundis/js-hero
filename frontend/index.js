@@ -3,6 +3,7 @@ let gameStart = false
 let starter = true
 let SONGS = []
 const mainBody = document.getElementById('mainbody')
+const songDiv = document.getElementById('songContainer')
 
 function mainPageSetup() {
   mainBody.innerHTML = ' '
@@ -26,26 +27,51 @@ function mainPageSetup() {
   mainButtonsEventListener([seeScores, playButton])
 }
 
+function setBackground(id){
+    switch(id) {
+      case "see-scores":
+      document.body.style.background = "url('./images/highscore.jpg') no-repeat center center fixed"
+      document.body.style.backgroundSize = "cover"
+      break;
+      case "play-game":
+      document.body.style.background = "url('./images/choosesong.png') no-repeat center center fixed"
+      document.body.style.backgroundSize = "cover"
+      break;
+      case "1":
+      document.body.style.background = "url('./images/tws playing.jpeg') no-repeat center center fixed"
+      document.body.style.backgroundSize = "cover"
+      break;
+      case "2":
+      document.body.style.background = "url('./images/atdi playing.jpg') no-repeat center center fixed"
+      document.body.style.backgroundSize = "cover"
+      break;
+      case "3":
+      document.body.style.background = "url('./images/phantom playing.jpg') no-repeat center center fixed"
+      document.body.style.backgroundSize = "cover"
+      break;
+
+    }
+  }
+
 function setUpSongButtons(e) {
   mainBody.innerHTML = " "
   let fragment = document.createDocumentFragment()
   let instructions = document.createElement('h3')
-  let homePage = document.createElement('p')
   SONGS = []
 
+  let homePage = document.createElement('p')
   homePage.innerText = "Home"
   homePage.setAttribute('id', 'homepage')
-
   fragment.append(homePage)
+  homePageEventListener(homePage)
+
   fragment.append(instructions)
 
   if(e.target.id == 'see-scores'){
     instructions.innerText = 'Choose a song to see its scores!'
   } else if(e.target.id == 'play-game'){
-    instructions.innerText = 'Choose a song to play!'
+    instructions.innerText = 'Choose your set!'
   }
-
-  homePageEventListener(homePage)
   return fragment
 }
 
@@ -53,6 +79,7 @@ function mainButtonsEventListener(arr) {
   arr.forEach(element => {
     element.addEventListener('click', (e)=>{
       let fragment = setUpSongButtons(e)
+      setBackground(e.target.id)
       SongAdapter.getSongs()
       .then(resp => {
         resp.forEach((song)=>{
@@ -64,7 +91,6 @@ function mainButtonsEventListener(arr) {
             fragment.append(songButton)
           }
         )
-
         mainBody.append(fragment)
         let songButtons = document.getElementsByClassName('song-buttons')
         for (var i = 0; i < songButtons.length; i++) {
@@ -85,6 +111,8 @@ function mainButtonsEventListener(arr) {
 function homePageEventListener(homePage) {
   homePage.addEventListener('click', ()=>{
     mainPageSetup()
+    document.body.style.background = "url('./images/homepage.jpg') no-repeat center center fixed"
+    document.body.style.backgroundSize = "cover"
   })
 }
 
@@ -109,16 +137,20 @@ function setUpScores(scoreArray) {
 
   homePageEventListener(homePage)
 
-  let orderedScores = scoreArray.sort((a,b) => b.value - a.value)
+  let orderedScores = scoreArray.sort((a,b) => b.value - a.value).slice(0,10)
   orderedScores.forEach((score) =>{
     let scoreList = document.createElement('li')
     scoreList.innerText = `${score.name} scored ${score.value} points!`
     list.append(scoreList)
   })
-  mainBody.append(list)
+  let scoreDiv = document.createElement('div')
+  scoreDiv.setAttribute("class", "scorelist")
+  scoreDiv.append(list)
+  mainBody.append(scoreDiv)
 }
 
 function setUpSong(id) {
+  setBackground(id)
   SongAdapter.getSong(id)
   .then(song => {
     setUpGame()
@@ -196,7 +228,7 @@ function keyPush(evt) {
 function endGame() {
   gameStart = false
   starter = true
-  let finalScore = document.createElement('h2')
+  let finalScore = document.createElement('h3')
   let points = score.innerText
   let songId = canvas.id
   finalScore.innerText = `Your score is ${points}.`
