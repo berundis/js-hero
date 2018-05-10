@@ -6,17 +6,18 @@ const mainBody = document.getElementById('mainbody')
 
 function mainPageSetup() {
   mainBody.innerHTML = ' '
-  let playButton = document.createElement('button')
-  let seeScores = document.createElement('button')
+  let playButton = document.createElement('h2')
+  let seeScores = document.createElement('h2')
+  let lineBreak = document.createElement('br')
   let fragment = document.createDocumentFragment()
 
   playButton.setAttribute('id', 'play-game')
   playButton.setAttribute('class', 'main-buttons')
-  playButton.innerText = "Play Keytar Hero!"
+  playButton.innerText = "Rock Out!"
 
   seeScores.setAttribute('id', 'see-scores')
   seeScores.setAttribute('class', 'main-buttons')
-  seeScores.innerText = "See High Scores"
+  seeScores.innerText = "High Scores"
 
   fragment.append(playButton)
   fragment.append(seeScores)
@@ -28,7 +29,7 @@ function mainPageSetup() {
 function setUpSongButtons(e) {
   mainBody.innerHTML = " "
   let fragment = document.createDocumentFragment()
-  let instructions = document.createElement('h2')
+  let instructions = document.createElement('h3')
   let homePage = document.createElement('p')
   SONGS = []
 
@@ -137,6 +138,7 @@ function setUpSong(id) {
 }
 
 function setUpGame() {
+  let div = document.createElement('div')
   let score = document.createElement('span')
   let fragment = document.createDocumentFragment()
   let scoreCard = document.createElement('h2')
@@ -144,6 +146,7 @@ function setUpGame() {
   let multiplierCard = document.createElement('h2')
   let multiplierVisual = document.createElement('p')
 
+  div.setAttribute('class', 'scoreClass')
   score.setAttribute('id', 'score')
   score.innerText = '0'
   scoreCard.innerText = 'Score: '
@@ -158,7 +161,8 @@ function setUpGame() {
   fragment.append(scoreCard)
   fragment.append(multiplierCard)
   fragment.append(multiplierVisual)
-  mainBody.append(fragment)
+  div.append(fragment)
+  mainBody.append(div)
 }
 
 document.addEventListener("keyup", (e)=>{

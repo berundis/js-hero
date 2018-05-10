@@ -1,7 +1,7 @@
 mainPageSetup()
 
 function setupCanvas(q, w, e, r, t) {
-  createCanvas(560, CONTAINERHEIGHT);
+  let canvas = createCanvas(560, CONTAINERHEIGHT);
   rectMode(CENTER)
   qArr = createArray(q, 90, 51, 204, 51);
   wArr = createArray(w, 180, 255, 51, 51);
@@ -23,7 +23,7 @@ let tPressed = false
 
 function draw() {
   if(gameStart){
-    background(51);
+    clear()
     qbox.show()
     wbox.show()
     ebox.show()
