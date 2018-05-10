@@ -73,29 +73,45 @@ function setUpSongButtons(e) {
   } else if(e.target.id == 'play-game'){
     instructions.innerText = 'Choose your set!'
   }
-  return fragment
+  mainBody.append(fragment)
 }
 
 function mainButtonsEventListener(arr) {
   arr.forEach(element => {
     element.addEventListener('click', (e)=>{
-      let fragment = setUpSongButtons(e)
+        setUpSongButtons(e)
+      let fragment = document.createDocumentFragment()
+
       setBackground(e.target.id)
+      let songContainer = document.createElement('div')
+      songContainer.setAttribute('class', 'flex-container')
+
       SongAdapter.getSongs()
       .then(resp => {
         resp.forEach((song)=>{
             SONGS.push(song)
-            songButton = document.createElement('button')
-            songButton.setAttribute('id', `${song.id}`)
-            songButton.setAttribute('class', 'song-buttons')
-            songButton.innerText = `${song.name} by ${song.artist}`
-            fragment.append(songButton)
+            let songDiv = document.createElement('div')
+            let songTitle = document.createElement('h4')
+            let songArtist = document.createElement('h4')
+            songPicture = document.createElement('img')
+
+            songPicture.setAttribute('id', `${song.id}`)
+            songPicture.setAttribute('class', 'song-images')
+            songTitle.innerText = `${song.name}`
+            songArtist.innerText = `By: ${song.artist}`
+
+            songPicture.src = song.imagePath
+            songDiv.append(songPicture, songTitle, songArtist)
+            fragment.append(songDiv)
           }
         )
-        mainBody.append(fragment)
-        let songButtons = document.getElementsByClassName('song-buttons')
-        for (var i = 0; i < songButtons.length; i++) {
-          songButtons[i].addEventListener('click',(event)=>{
+        songContainer.append(fragment)
+
+        mainBody.append(songContainer)
+
+        let songPictures = document.getElementsByClassName('song-images')
+        for (var i = 0; i < songPictures.length; i++) {
+          songPictures[i].addEventListener('click',(event)=>{
             mainBody.innerHTML = " "
             if(e.target.id == 'see-scores'){
               getSongScores(event.target.id)

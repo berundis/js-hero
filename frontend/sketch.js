@@ -1,7 +1,11 @@
 mainPageSetup()
 
 function setupCanvas(q, w, e, r, t) {
-  let canvas = createCanvas(560, CONTAINERHEIGHT);
+  createCanvas(560, CONTAINERHEIGHT);
+  let canvas = document.querySelector('canvas')
+  mainBody.prepend(canvas)
+  mainBody.style.display = "flex"
+  mainBody.style.width = ""
   rectMode(CENTER)
   qArr = createArray(q, 90, 51, 204, 51);
   wArr = createArray(w, 180, 255, 51, 51);
@@ -51,7 +55,7 @@ function draw() {
     if(starter){
       starter = false
       let songPlaying = findById(SONGS, canvas.id)
-      setTimeout(()=>{endGame()}, 5 * 1000)
+      setTimeout(()=>{endGame()}, 1000 * 1000)
     }
   }
 }
