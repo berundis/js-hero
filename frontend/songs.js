@@ -383,6 +383,6 @@ const song3 = {
 
                -20000]
 }
-SONGS.push(song1)
-SONGS.push(song3)
-SONGS.push(song2)
+SONGNOTES.push(song1)
+SONGNOTES.push(song2)
+SONGNOTES.push(song3)

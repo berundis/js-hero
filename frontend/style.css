@@ -1,0 +1,185 @@
+h1{
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  width: 50%;
+  font-family: 'Metal Mania', cursive;
+  font-size: 5rem;
+  background: url('./images/fire.png');
+  background-size: contain;
+  color: white;
+  -webkit-text-stroke-width: 0.05rem;
+  -webkit-text-stroke-color: black;
+}
+
+.scoreClass{
+  width: 600px;
+}
+
+body {
+ background: url('./images/homepage.jpg') no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+
+.mainbodyclass {
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.mainbodyclass h2 {
+  font-family: 'Audiowide', cursive;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 4px 4px 1px black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+.mainbodyclass h3{
+  font-family: 'Audiowide', cursive;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 4px 4px 1px black;
+}
+
+canvas{
+  margin-top: 0
+}
+
+.mainbodyclass h2:hover{
+  color: grey;
+}
+
+#homepage{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  width: 25%;
+  font-family: 'Metal Mania', cursive;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 4px 4px 1px black;
+  top: 0;
+  left: 0;
+  letter-spacing: 1px;
+}
+
+#homepage:hover{
+  color: red;
+}
+/* Score Submit Form */
+#scoreSubmit{
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  font-size: 1rem;
+  -webkit-text-stroke-width: 0.001rem;
+  -webkit-text-stroke-color: black;
+  padding-bottom: .5rem;
+}
+
+#submit-points-form{
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+		position: absolute;
+		font-size: 1rem;
+		text-transform: uppercase;
+		padding: 7px 20px;
+		left: 50%;
+		width: 200px;
+		margin-left: -100px;
+		top: 40%;
+		border-radius: 10px;
+		color: white;
+		text-shadow: -1px -1px 1px rgba(0,0,0,0.8);
+		border: 5px solid transparent;
+		border-bottom-color: rgba(0,0,0,0.35);
+		background: rgba(139, 0, 139, 0.8);
+		cursor: pointer;
+    outline: 0 !important;
+
+		animation: pulse 1s infinite alternate;
+		transition: background 0.4s, border 0.2s, margin 0.2s;
+}
+
+#submit-points-form:hover {
+		background: rgba(255,0,255,0.8);
+		margin-top: -1px;
+		animation: none;
+	}
+#submit-points-form:active {
+	border-bottom-width: 0;
+	margin-top: 5px;
+}
+@keyframes pulse {
+	0% {
+		margin-top: 0px;
+	}
+	100% {
+		margin-top: 6px;
+	}
+}
+
+/* Create translucent background for list */
+.scorelist{
+  background-color: rgba(51,51,51,0.8);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+/* Gets rid of bullets */
+ul{
+  list-style-type: none;
+  }
+
+  li {
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    font-size: 1rem;
+    text-shadow: 4px 4px 1px #000;
+    padding-top:1em;
+  }
+
+  li:first-of-type {
+    padding-top:2em;
+  }
+  li:last-of-type {
+    padding-bottom:2em;
+  }
+
+/* Song Image Spacing and Size */
+img{
+  height: 220px;
+  width: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* FLEX CONTAINER FOR THE OPTION */
+.flex-container{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+h4{
+  font-family: 'Audiowide', cursive;
+  color: white;
+  font-size: 1.25rem;
+  text-shadow: 2px 2px 2px black;
+}

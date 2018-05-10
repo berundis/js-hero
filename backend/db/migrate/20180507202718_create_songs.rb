@@ -5,6 +5,7 @@ class CreateSongs < ActiveRecord::Migration[5.1]
       t.string :artist
       t.string :filePath
       t.integer :duration
+      t.string :imagePath
     end
   end
 end
