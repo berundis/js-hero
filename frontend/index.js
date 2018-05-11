@@ -292,15 +292,18 @@ function scoreForm(points, songId) {
   let submitButton = document.getElementById('submit-points-form')
   submitButton.addEventListener('click', (e)=>{
     e.preventDefault()
-    let playerName = document.getElementById('player-name').value
-    if(playerName && playerName.trim()){
+    let playerName = document.getElementById('player-name')
+    if(playerName.value && playerName.value.trim() && playerName.value.trim().length < 20){
       e.preventDefault()
-      let scoreObj = {name: playerName.trim(), value: points, song_id: songId}
+      let scoreObj = {name: playerName.value.trim(), value: points, song_id: songId}
       ScoreAdapter.createScore(scoreObj)
       .then(resp => {
         mainBody.innerHTML = ' '
         getSongScores(songId)
       })
+    }
+    else {
+      playerName.value = ""
     }
   })
 }
