@@ -155,5 +155,7 @@ function AddScore(fretArr) {
         endGame()
       }
     }
+  }else{
+    setTimeout(()=>{endGame()}, 3000)
   }
 }
