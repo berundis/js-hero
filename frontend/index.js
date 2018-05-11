@@ -6,6 +6,10 @@ const mainBody = document.getElementById('mainbody')
 const songDiv = document.getElementById('songContainer')
 let songAudio
 
+function findById(songs, songID){
+  return songs.filter(song=> (song.id == songID))[0]
+}
+
 function mainPageSetup() {
   mainBody.innerHTML = ' '
   let playButton = document.createElement('h2')
@@ -79,7 +83,7 @@ function setUpSongButtons(e) {
 function mainButtonsEventListener(arr) {
   arr.forEach(element => {
     element.addEventListener('click', (e)=>{
-        setUpSongButtons(e)
+      setUpSongButtons(e)
       let fragment = document.createDocumentFragment()
 
       setBackground(e.target.id)
@@ -111,12 +115,29 @@ function mainButtonsEventListener(arr) {
 
         let songPictures = document.getElementsByClassName('song-images')
         for (var i = 0; i < songPictures.length; i++) {
+          let preview = new Audio()
+
+          if(e.target.id == 'play-game'){
+            songPictures[i].addEventListener('mouseover', (event)=>{
+              let song = findById(SONGS, event.target.id)
+              preview.src = './audio/TWS Preview.mp3'
+              // FIXME:ADD FILE TO BACKEND
+              preview.load()
+              preview.play()
+            })
+            songPictures[i].addEventListener('mouseout', (event)=>{
+              preview.pause()
+            })
+          }
           songPictures[i].addEventListener('click',(event)=>{
             mainBody.innerHTML = " "
             if(e.target.id == 'see-scores'){
               getSongScores(event.target.id)
+              setBackground(event.target.id)
             } else if(e.target.id == 'play-game'){
+              preview.pause()
               setUpSong(event.target.id)
+              setBackground(event.target.id)
             }
 
           })}
@@ -133,13 +154,13 @@ function homePageEventListener(homePage) {
   })
 }
 
-function findById(songs, songID){
-  return songs.filter(song=> (song.id == songID))[0]
-}
 
 function getSongScores(id) {
   SongAdapter.getSong(id)
     .then(song =>{
+      let songTitle = document.createElement('h3')
+      songTitle.innerHTML = `${song.name} by ${song.artist}`
+      mainBody.append(songTitle)
       setUpScores(song.scores)
     })
 }
@@ -154,6 +175,7 @@ function setUpScores(scoreArray) {
 
   homePageEventListener(homePage)
 
+
   let orderedScores = scoreArray.sort((a,b) => b.value - a.value).slice(0,10)
   orderedScores.forEach((score) =>{
     let scoreList = document.createElement('li')
@@ -167,7 +189,6 @@ function setUpScores(scoreArray) {
 }
 
 function setUpSong(id) {
-  setBackground(id)
   SongAdapter.getSong(id)
   .then(song => {
     setUpGame()
@@ -245,6 +266,7 @@ function keyPush(evt) {
 function endGame() {
   gameStart = false
   starter = true
+  mainBody.style.display = ""
   songAudio.pause()
   let finalScore = document.createElement('h3')
   let points = score.innerText
