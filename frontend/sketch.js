@@ -55,7 +55,7 @@ function draw() {
     if(starter){
       starter = false
       let songPlaying = findById(SONGS, canvas.id)
-      setTimeout(()=>{endGame()}, 10 * 1000)
+      setTimeout(()=>{endGame()}, songPlaying.duration * 1000)
     }
   }
 }
@@ -118,10 +118,15 @@ function showArr(fretArr, speed){
       score.innerText = parseInt(score.innerText) - 100
       multiplier.innerText = '1'
       visual.innerText = '.'
+      counter +=1
+      if(counter > ENDGAME){
+        endGame()
+      }
     }
   }
 }
 
+let counter = 0
 function AddScore(fretArr) {
   if(fretArr.length > 0){
     if(fretArr[0].onInputBox() || fretArr[1].onInputBox()){
@@ -129,6 +134,7 @@ function AddScore(fretArr) {
         fretArr.slice(1)
       }
       fretArr.shift()
+      counter = 0
       if(visual.innerText == '............' && parseInt(multiplier.innerText) == 4){
         visual.innerText = '............'
         score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
@@ -141,9 +147,13 @@ function AddScore(fretArr) {
         visual.innerText += '.'
       }
     }else {
+      counter +=1
       score.innerText = parseInt(score.innerText) - 100
       visual.innerText = '.'
       multiplier.innerText = '1'
+      if(counter > ENDGAME){
+        endGame()
+      }
     }
   }
 }

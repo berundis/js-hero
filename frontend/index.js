@@ -5,6 +5,7 @@ let SONGS = []
 const mainBody = document.getElementById('mainbody')
 const songDiv = document.getElementById('songContainer')
 let songAudio
+const ENDGAME = 24
 
 function findById(songs, songID){
   return songs.filter(song=> (song.id == songID))[0]
