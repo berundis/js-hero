@@ -213,6 +213,9 @@ function setUpGame() {
   let scoreCard = document.createElement('h2')
   let multiplier = document.createElement('span')
   let multiplierCard = document.createElement('h2')
+  /// jon
+  let pointDiv = document.createElement('div')
+  pointDiv.setAttribute('id', 'point-div')
   let multiplierVisual = document.createElement('p')
 
   div.setAttribute('class', 'scoreClass')
@@ -224,12 +227,13 @@ function setUpGame() {
   multiplierCard.innerText = 'Multiplier: x '
   multiplierVisual.setAttribute('id', 'visual')
   multiplierVisual.innerText = "."
-
+  //// jon
+  pointDiv.append(multiplierVisual)
   scoreCard.append(score)
   multiplierCard.append(multiplier)
   fragment.append(scoreCard)
   fragment.append(multiplierCard)
-  fragment.append(multiplierVisual)
+  fragment.append(pointDiv)
   div.append(fragment)
   mainBody.append(div)
 }
