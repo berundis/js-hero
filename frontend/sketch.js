@@ -55,13 +55,12 @@ function draw() {
     if(starter){
       starter = false
       let songPlaying = findById(SONGS, canvas.id)
-      setTimeout(()=>{endGame()}, 5 * 1000)
+      setTimeout(()=>{endGame()}, 10 * 1000)
     }
   }
 }
 
 function keyPressed() {
-
   switch(key) {
     case 'Q':
     qPressed = true
@@ -126,22 +125,22 @@ function showArr(fretArr, speed){
 function AddScore(fretArr) {
   if(fretArr.length > 0){
     if(fretArr[0].onInputBox() || fretArr[1].onInputBox()){
-
       if(fretArr[1].onInputBox()){
         fretArr.slice(1)
-
       }
       fretArr.shift()
-
-      score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
-      visual.innerText += '.'
-      if(visual.innerText == '............' && multiplier.innerText < 5){
+      if(visual.innerText == '............' && parseInt(multiplier.innerText) == 4){
+        visual.innerText = '............'
+        score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
+      }else if(visual.innerText == '............'){
+        score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
         multiplier.innerText = parseInt(multiplier.innerText) + 1
         visual.innerText = '.'
+      } else{
+        score.innerText = parseInt(score.innerText) + (100 * parseInt(multiplier.innerText))
+        visual.innerText += '.'
       }
-
     }else {
-
       score.innerText = parseInt(score.innerText) - 100
       visual.innerText = '.'
       multiplier.innerText = '1'

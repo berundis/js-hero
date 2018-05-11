@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20180507202903) do
     t.string "filePath"
     t.integer "duration"
     t.string "imagePath"
+    t.string "previewPath"
   end
 
 end

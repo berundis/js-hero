@@ -1,6 +1,6 @@
-tws = Song.create(name: "Fell in Love With a Girl", artist: "The White Stripes", filePath: "./audio/The White Stripes.mp3", duration: 118, imagePath:'./images/tws choice.jpeg')
-starSlight = Song.create(name: "Star Slight", artist: "At the Drive-In", filePath: "./audio/Star Slight.mp3", duration: 83, imagePath:'./images/star slight choice.jpg')
-whenImSmall = Song.create(name: "When I'm Small", artist: "Phantogram", filePath: "./audio/When I'm Small.mp3", duration: 255, imagePath:'./images/phantogram choice.jpeg')
+tws = Song.create(name: "Fell in Love With a Girl", artist: "The White Stripes", filePath: "./audio/The White Stripes.mp3", duration: 118, imagePath:'./images/tws choice.jpeg', previewPath: './audio/TWS Preview.mp3')
+starSlight = Song.create(name: "Star Slight", artist: "At the Drive-In", filePath: "./audio/Star Slight.mp3", duration: 83, imagePath:'./images/star slight choice.jpg', previewPath: './audio/ATDI Preview.mp3')
+whenImSmall = Song.create(name: "When I'm Small", artist: "Phantogram", filePath: "./audio/When I'm Small.mp3", duration: 255, imagePath:'./images/phantogram choice.jpeg', previewPath: './audio/PH Preview.mp3')
 
 
 Score.create(name: "Jon", value: 1000000000, song_id: 1)

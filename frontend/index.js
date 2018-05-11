@@ -54,7 +54,6 @@ function setBackground(id){
       document.body.style.background = "url('./images/phantom playing.jpg') no-repeat center center fixed"
       document.body.style.backgroundSize = "cover"
       break;
-
     }
   }
 
@@ -120,8 +119,7 @@ function mainButtonsEventListener(arr) {
           if(e.target.id == 'play-game'){
             songPictures[i].addEventListener('mouseover', (event)=>{
               let song = findById(SONGS, event.target.id)
-              preview.src = './audio/TWS Preview.mp3'
-              // FIXME:ADD FILE TO BACKEND
+              preview.src = song.previewPath
               preview.load()
               preview.play()
             })
