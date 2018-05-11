@@ -18,6 +18,6 @@ function Fret(x, y, red, green, blue) {
   }
 
   this.onInputBox = function(){
-    return this.y > CONTAINERHEIGHT - 150 && this.y < CONTAINERHEIGHT - 25
+    return this.y > CONTAINERHEIGHT - 125 && this.y < CONTAINERHEIGHT - 50
   }
 }
