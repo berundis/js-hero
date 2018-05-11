@@ -115,7 +115,9 @@ function showArr(fretArr, speed){
     fretArr[i].move(speed)
     if (fretArr[i].y > CONTAINERHEIGHT-75){
       fretArr.shift();
-      score.innerText = parseInt(score.innerText) - 100
+      if (parseInt(score.innerText) > 0) {
+        score.innerText = parseInt(score.innerText) - 100
+      }
       multiplier.innerText = '1'
       visual.innerText = '.'
       counter +=1
@@ -148,7 +150,9 @@ function AddScore(fretArr) {
       }
     }else {
       counter +=1
-      score.innerText = parseInt(score.innerText) - 100
+      if (parseInt(score.innerText) > 0) {
+        score.innerText = parseInt(score.innerText) - 100
+      }
       visual.innerText = '.'
       multiplier.innerText = '1'
       if(counter > ENDGAME){

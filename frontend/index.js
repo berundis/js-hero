@@ -227,7 +227,7 @@ function setUpGame() {
   multiplierCard.innerText = 'Multiplier: x '
   multiplierVisual.setAttribute('id', 'visual')
   multiplierVisual.innerText = "."
-  //// jon
+
   pointDiv.append(multiplierVisual)
   scoreCard.append(score)
   multiplierCard.append(multiplier)
